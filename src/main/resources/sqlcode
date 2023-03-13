@@ -5,6 +5,24 @@ create table training_users(
 
 	insert into training_users (name,mail)
 	values ('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
+	('宮澤 知輝','kaihatsu.tomoki.miyazawa@gmail.com'),
 	('加藤 智大','kaihatsu.tomohiro.kato@gmail.com'),
 	('崔 美娜','kaihatsu.mina.sai@gmail.com'),
 	('森上 力','kaihatsu.chikara.morigami@gmail.com'),
@@ -14,3 +32,24 @@ create table training_users(
 	('三津間 成美','kaihatsu.narumi.mitsuma@gmail.com'),
 	('長澤 治輝','kaihatsu.haruki.nagasawa@gmail.com'),
 	('古郡 卓弥','kaihatsu.takuya.furugori@gmail.com');
+
+	<div style="text-align:center; margin-top:20px;margin-bottom:20px;">
+		<tr th:if="${test == 1}">&ltcc;</tr>
+		<a th:if="${test != 1}" th:href="@{'/users/'+${test-1}}"> &ltcc;</a>
+		<tr th:if="${test gt 3}">...</tr>
+		<!-- ページの省略 -->
+		<tr th:each="i: ${#numbers.sequence(test-2,test+2)}" >
+			<a th:if="${i!=test && i ge 1 && i le p}" th:href="@{/users/{test}(test=${i})}">
+				<td th:text="${i}"></td>
+			</a>
+			<span th:if="${i==test}">
+				<mark><td th:text="${i}"></td></mark>
+			</span>
+		</tr>
+		<!-- ↑　ページング省略終わり -->
+		<tr th:if="${test lt p-2}">...</tr>
+		<tr th:if="${test == p}">&gtcc;</tr>
+		<tr>
+			<a th:if="${test != p}" th:href="@{'/users/' + ${test+1}}"> &gtcc;</a>
+		</tr>
+	</div>

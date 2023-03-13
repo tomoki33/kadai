@@ -17,9 +17,18 @@
 </header>
 
 <style>
+	@font-face {
+		font-family: 'Turtles';
+		/* フォント名 */
+		/* フォーマットごとにパスを指定 */
+		src: url('/icon/Turtles/Turtles.ttf');
+	}
+
 	body {
-		background-image: url("icon/marvel.jpg");
-		color: white;
+		background-image: url("/icon/marvel3.jpg");
+		background-size: cover;
+		color: whitesmoke;
+		font-family: 'Turtles';
 	}
 
 	tr {
@@ -37,15 +46,14 @@
 		text-align: center;
 		line-height: 30px;
 		font-size: 12px;
-		border: 1px #ccc solid;
+		border: 1px greenyellow solid;
 		border-radius: 5px;
 	}
 
 	.example li a {
 		display: block;
 		text-decoration: none;
-		color: #333;
-
+		color: red;
 	}
 
 	.example .this {
@@ -56,7 +64,7 @@
 
 <body>
 	<div class="mx-auto h1" style="text-align:center; margin-top:20px;margin-bottom:20px;">
-		研修生一覧
+		TRAINEELIST
 	</div>
 	<div style="text-align: right;">
 		<a class="btn btn-primary" href="/create" style=" border-radius:30px; width: 2%; margin-right:20px;">+</a>
@@ -65,10 +73,10 @@
 		<thead>
 			<tr>
 				<th scope="col">ID</th>
-				<th scope="col">名前</th>
-				<th scope="col">メールアドレス</th>
-				<th scope="col">削除</th>
-				<th scope="col">編集</th>
+				<th scope="col">NAME</th>
+				<th scope="col">MAIL</th>
+				<th scope="col">DELETE</th>
+				<th scope="col">EDIT</th>
 			</tr>
 		</thead>
 		<tr th:each="user : ${users}">
@@ -80,7 +88,7 @@
 					<input type="hidden" name="id" th:value="${user.id}">
 					<input type="hidden" name="name" th:value="${user.name}">
 					<input type="hidden" name="mail" th:value="${user.mail}">
-					<input type="image" th:src="@{icon/trash.png}" width="30px" height="30px">
+					<input type="image" th:src="@{/icon/trash.jpg}" width="30px" height="30px">
 				</form>
 			</td>
 			<td>
@@ -88,19 +96,34 @@
 					<input type="hidden" name="id" th:value="${user.id}">
 					<input type="hidden" name="name" th:value="${user.name}">
 					<input type="hidden" name="mail" th:value="${user.mail}">
-					<input type="image" th:src="@{icon/pencil.png}" width="30px" height="30px">
+					<input type="image" th:src="@{/icon/pencil.png}" width="30px" height="30px">
 				</form>
 			</td>
 		</tr>
 	</table>
 
-	<ul class="example" style="text-align: center;">
-		<li>前へ</li>
-		<li class="this">1</li>
-		<li><a href="/users/2">2</a></li>
-		<li><a href="page-3.html">3</a></li>
-		<li><a href="page-2.html">次へ</a></li>
-	</ul>
+	<div style="text-align: center" ;>
+		<!--左のボタン\-->
+		<block th:if="${test!=1}">
+			<a th:href="@{'/users/'+${test-1}}">&ltcc;</a>
+		</block>
+		<block th:if="${test==1}">&ltcc;</block>
+
+			<!--ボタンを出す-->
+		<block th:each="i: ${#numbers.sequence(1,page)}">
+			<a th:if="${test!=i && i==test+1 ||test!=i && i==test-1 ||test!=i && i==page||test!=i && i==num ||test!=i && i==1  }"
+			 th:href="@{'/users/'+${i}}" th:text="${i}"></a>
+
+			 <a th:if="${test==i}"  th:text="${test}"></a>
+			 <!--非活性のボタン-->
+			 <a th:if="${i==test+2 && i!=page|| i==test-2}">...</a>
+		</block>
+			<!--右のボタン-->
+		<block th:if="${test!=page}">
+		<a th:href="@{'/users/'+${test+1}}">&gtcc;</a>
+		</block>
+		<block th:if="${test==page}">&gtcc;</block>
+	</div>
 </body>
 
 </html>

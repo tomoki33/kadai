@@ -26,6 +26,13 @@ public class UserRepository {
     List<Map<String, Object>> users = jdbcTemplate.queryForList(query,i);
     return users;
   }
+  
+  public Integer countAll() {
+    // ユーザー一覧抽出クエリ
+    String query = "select count(id) from training_users;";
+   Integer users = jdbcTemplate.queryForObject(query,Integer.class);
+    return users;
+  }
 
   // 新規ユーザ登録
   public boolean createUserRecord(User user) {
@@ -47,7 +54,4 @@ public class UserRepository {
     jdbcTemplate.update(query, user.getId());
     return true;
   }
-
-  //ページング
-
 }

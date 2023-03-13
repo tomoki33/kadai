@@ -27,7 +27,7 @@ public class UserService {
 		}
 		return users;
 	}
-
+//ユーザ一覧回すやつ
 	public List<User> getUsers(int test) {
 		int i = 10 * (test-1);
 		List<Map<String, Object>> querySet = repo.findAll2(i);
@@ -40,8 +40,17 @@ public class UserService {
 			users.add(user);
 		}
 		return users;
-
 	}
+
+	//ページ数
+	public int getpage(){
+		int page =repo.countAll()/10;
+		if(page%10!=0){
+			page=repo.countAll()/10+1;
+		}
+		return page;
+	}
+	
 
 	// 新規ユーザ登録
 	public boolean createUser(String userName, String userMail) {
@@ -61,7 +70,6 @@ public class UserService {
 		user.setId(userId);
 		user.setName(userName);
 		user.setMail(userMail);
-
 		repo.updateUserRecord(user);
 		return true;
 	}
@@ -76,4 +84,5 @@ public class UserService {
 		return true;
 	}
 
+	
 }

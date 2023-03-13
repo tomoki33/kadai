@@ -37,10 +37,12 @@ public class UserController {
 	@GetMapping("/users/{test}")
 	public String Index(@PathVariable int test,  Model model) {
 		List<User> users = service.getUsers(test);
+		int page = service.getpage();
 		for (var user : users) {
 			System.out.println(user.getName());
 		}
 		model.addAttribute("users", users);
+		model.addAttribute("page",page);
 		return "/index";
 	}
 
@@ -63,7 +65,7 @@ public class UserController {
 			@RequestParam("userMail") String mail, Model model) {
 		// DBへの登録
 		service.createUser(name, mail);
-		return "redirect:/users";
+		return "redirect:/users/1";
 	}
 
 	// 編集
@@ -76,8 +78,6 @@ public class UserController {
 		model.addAttribute("mail", h);
 		return "/update";
 	}
-
-	
 
 	@PostMapping("/update_confirm")
 	public String updateConfirmUser(@RequestParam("id") int id,
@@ -113,22 +113,9 @@ public class UserController {
 
 	//削除完了
 	@PostMapping("/delete_complete")
-	public String deleteUser( @RequestParam("id") int id ,Model model) {
+	public String deleteUser(@RequestParam("id") int id ,Model model) {
 		model.addAttribute("id", id);
 		service.deleteUser(id);
-		return "redirect:/users";
+		return "redirect:/users/1";
 	}
-
-	//ページング
-
-		@GetMapping("/users2")
-	public String Index2(Model model) {
-		List<User> users = service.getUsers();
-		for (var user : users) {
-			System.out.println(user.getName());
-		}
-		model.addAttribute("users", users);
-		return "/index";
-	}
-
 }
